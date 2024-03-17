@@ -27,38 +27,43 @@ class _CityPageState extends State<CityPage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              Center(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Image.asset(
-                      'assets/logo.jpeg',
-                      width: 450,
-                      height: 250,
-                      fit: BoxFit.cover,
+          child: ScrollConfiguration(
+            behavior: ScrollBehavior().copyWith(
+                overscroll: false
+            ),
+            child: ListView(
+              children: <Widget>[
+                Center(
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.asset(
+                        'assets/logo.png',
+                        width: 450,
+                        height: 250,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              Text(
-                'Trabzon\'da ne yapmak istersin?',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: 50,
                 ),
-              ),
-              buildCardWithArrow('assets/logo.jpeg', 'Yeme-içme'),
-              buildCardWithArrow('assets/logo.jpeg', 'Gezme-tozma'),
-              buildCardWithArrow('assets/logo.jpeg', 'Konaklama'),
-            ],
+                Text(
+                  'Trabzon\'da ne yapmak istersin?',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                buildCardWithArrow('assets/logo.png', 'Yeme-içme'),
+                buildCardWithArrow('assets/logo.png', 'Gezme-tozma'),
+                buildCardWithArrow('assets/logo.png', 'Konaklama'),
+              ],
+            ),
           ),
         ),
       ),

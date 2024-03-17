@@ -25,89 +25,87 @@ class _CitySelectPageState extends State<CitySelectPage> {
           ),
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ScrollConfiguration(
+          behavior: ScrollBehavior().copyWith(overscroll: false),
+          child: ListView(
             children: <Widget>[
               Center(
                 child: Card(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        20.0), // Kartın köşelerini yuvarlatır
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
-                    // Resmin köşelerini yuvarlatır
                     child: Image.asset(
-                      'assets/logo.jpeg',
+                      'assets/logo.png',
                       width: 450,
                       height: 250,
-                      fit: BoxFit
-                          .cover, // Resmi uygun şekilde doldurmak için fit'i belirler
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 50,
-              ),
-              Text(
-                'Şehrinizi Seçin:',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+              SizedBox(height: 50),
+              Center(
+                child: Text(
+                  'Şehrinizi Seçin:',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               SizedBox(height: 20),
-              DropdownButton<String>(
-                value: dropdownValue,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                  });
-                },
-                items: <String>[
-                  'Seçiniz',
-                  'Ankara',
-                  'İstanbul',
-                  'Trabzon'
-                ] // Şehirlerin listesi
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: dropdownValue == 'Seçiniz'
-                      ? MaterialStateProperty.all<Color>(Colors.grey)
-                      : MaterialStateProperty.all<Color>(Colors.green),
-                  // Yukarıda, dropdownValue 'Seçiniz' değilse yeşil olacak şekilde bir kontrol yapısı oluşturduk
-                  // Eğer dropdownValue 'Seçiniz' ise gri renkte olacak ve tıklanamayacak
+              Center(
+                child: DropdownButton<String>(
+                  value: dropdownValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                    });
+                  },
+                  items: <String>[
+                    'Seçiniz',
+                    'Ankara',
+                    'İstanbul',
+                    'Trabzon'
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
-                onPressed: dropdownValue == 'Seçiniz'
-                    ? null
-                    : () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      child: CityPage(),
-                      type: PageTransitionType.rightToLeft,
-                    ),
-                  );
-                      },
-                child: Text(
-                  'Devam Et',
-                  style: TextStyle(
+              ),
+              SizedBox(height: 40),
+              Center(
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: dropdownValue == 'Seçiniz'
+                        ? MaterialStateProperty.all<Color>(Colors.grey)
+                        : MaterialStateProperty.all<Color>(Colors.green),
+                  ),
+                  onPressed: dropdownValue == 'Seçiniz'
+                      ? null
+                      : () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                        child: CityPage(),
+                        type: PageTransitionType.rightToLeft,
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Devam Et',
+                    style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w400,
-                      color: Colors.white),
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ],
