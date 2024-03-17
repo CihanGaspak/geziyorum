@@ -13,35 +13,45 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final email = 'email'; // Doğru e-posta
+  final sifre = '123'; // Doğru şifre
+  bool _isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffffffff),
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Geziyorum',style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.w600,
-        ),),
+        title: Text(
+          'Geziyorum',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
       body: ScrollConfiguration(
-        behavior: ScrollBehavior().copyWith(
-            overscroll: false
-        ),
+        behavior: ScrollBehavior().copyWith(overscroll: false),
         child: ListView(
           children: [
             Center(
               child: Card(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0), // Kartın köşelerini yuvarlatır
+                  borderRadius: BorderRadius.circular(
+                      20.0), // Kartın köşelerini yuvarlatır
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0), // Resmin köşelerini yuvarlatır
+                  borderRadius: BorderRadius.circular(20.0),
+                  // Resmin köşelerini yuvarlatır
                   child: Image.asset(
                     'assets/logo.png',
                     width: 250,
                     height: 250,
-                    fit: BoxFit.cover, // Resmi uygun şekilde doldurmak için fit'i belirler
+                    fit: BoxFit
+                        .cover, // Resmi uygun şekilde doldurmak için fit'i belirler
                   ),
                 ),
               ),
@@ -58,10 +68,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Center(
               child: Container(
-                height: 375,
+                height: 350,
                 width: 300,
                 child: Card(
                   color: Colors.grey[300],
@@ -83,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         SizedBox(height: 16.0),
                         TextFormField(
+                          controller: emailController,
                           decoration: InputDecoration(
                             labelText: 'E-posta',
                             filled: true,
@@ -94,13 +107,22 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         SizedBox(height: 16.0),
                         TextFormField(
-                          obscureText: true, // Şifrenin gizli olmasını sağlar
+                          controller: passwordController,
+                          obscureText: _isObscure, // _isObscure değerine göre şifre gizlenecek veya gösterilecek
                           decoration: InputDecoration(
                             labelText: 'Şifre',
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(!_isObscure ? Icons.visibility : Icons.visibility_off), // Göz simgesini değiştirir
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure; // _isObscure değerini tersine çevirir
+                                });
+                              },
                             ),
                           ),
                         ),
@@ -113,20 +135,41 @@ class _LoginPageState extends State<LoginPage> {
                                 Size(100, 50)), // Düğme boyutunu belirler
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                child: CitySelectPage(),
-                                type: PageTransitionType.rightToLeft,
-                              ),
-                            );
+                            // E-posta ve şifre kontrol ediliyor
+                            if (emailController.text == email &&
+                                passwordController.text == sifre) {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  child: CitySelectPage(),
+                                  type: PageTransitionType.rightToLeft,
+                                ),
+                              );
+                            } else {
+                              // Yanlışsa, hata mesajı gösteriliyor
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text('Hatalı Giriş'),
+                                  content: Text(
+                                      'E-posta veya şifre yanlış. Lütfen tekrar deneyin.'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text('Tamam'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           },
                           child: Text(
                             'Giriş Yap',
                             style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white),
+                              color: Colors.black, // Metin rengini yeşil yapar
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                         SizedBox(height: 24.0),
@@ -136,12 +179,14 @@ class _LoginPageState extends State<LoginPage> {
                             Text(
                               'Hesabınız yok mu? ',
                               style: TextStyle(
-                                color: Colors.black, // Metin rengini yeşil yapar
+                                color: Colors.black,
+                                // Metin rengini yeşil yapar
                                 fontSize: 14,
                               ),
                             ),
                             InkWell(
                               onTap: () {
+                                Navigator.of(context).pop();
                                 Navigator.push(
                                   context,
                                   PageTransition(
@@ -153,7 +198,8 @@ class _LoginPageState extends State<LoginPage> {
                               child: Text(
                                 'Hemen kaydolun!',
                                 style: TextStyle(
-                                  color: Colors.blue, // Metin rengini yeşil yapar
+                                  color: Colors.blue,
+                                  // Metin rengini yeşil yapar
                                   fontWeight: FontWeight.w500,
                                   fontSize: 14,
                                 ),

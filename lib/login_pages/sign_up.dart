@@ -12,6 +12,10 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  bool _isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,16 +51,21 @@ class _SignUpPageState extends State<SignUpPage> {
             SizedBox(
               height: 15,
             ),
-            Text(
-              'GeziYorum',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w500,
+            Center(
+              child: Text(
+                'GeziYorum',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
+            ),
+            SizedBox(
+              height: 10,
             ),
             Center(
               child: Container(
-                height: 400,
+                height: 350,
                 width: 300,
                 child: Card(
                   color: Colors.grey[300],
@@ -78,6 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         SizedBox(height: 16.0),
                         TextFormField(
+                          controller: emailController,
                           decoration: InputDecoration(
                             labelText: 'E-posta',
                             filled: true,
@@ -89,13 +99,22 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         SizedBox(height: 16.0),
                         TextFormField(
-                          obscureText: true, // Şifrenin gizli olmasını sağlar
+                          controller: passwordController,
+                          obscureText: _isObscure, // _isObscure değerine göre şifre gizlenecek veya gösterilecek
                           decoration: InputDecoration(
                             labelText: 'Şifre',
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(!_isObscure ? Icons.visibility : Icons.visibility_off), // Göz simgesini değiştirir
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure; // _isObscure değerini tersine çevirir
+                                });
+                              },
                             ),
                           ),
                         ),
@@ -108,17 +127,24 @@ class _SignUpPageState extends State<SignUpPage> {
                                 Size(100, 50)), // Düğme boyutunu belirler
                           ),
                           onPressed: () {
-                            // Giriş butonuna basıldığında yapılacak işlemler
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                child: LoginPage(),
+                                type: PageTransitionType.fade,
+                              ),
+                            );
                           },
                           child: Text(
                             'Kayıt ol',
                             style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w400,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                         ),
-                        SizedBox(height: 16.0),
+                        SizedBox(height: 24.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -131,6 +157,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             InkWell(
                               onTap: () {
+                                Navigator.of(context).pop();
                                 Navigator.push(
                                   context,
                                   PageTransition(

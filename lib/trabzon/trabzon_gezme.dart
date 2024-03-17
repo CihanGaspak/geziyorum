@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class DetayliGorunen extends StatefulWidget {
-  const DetayliGorunen({Key? key});
+class TrabzonGezme extends StatefulWidget {
+  const TrabzonGezme({Key? key});
 
   @override
-  State<DetayliGorunen> createState() => _DetayliGorunenState();
+  State<TrabzonGezme> createState() => _TrabzonGezmeState();
 }
 
-class _DetayliGorunenState extends State<DetayliGorunen> {
+class _TrabzonGezmeState extends State<TrabzonGezme> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -17,7 +17,7 @@ class _DetayliGorunenState extends State<DetayliGorunen> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'Gezme Tozma',
+            'Yeme İçme',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w600,
@@ -31,8 +31,12 @@ class _DetayliGorunenState extends State<DetayliGorunen> {
           child: ListView(
             children: [
               MyCustomWidget(
-                image: 'assets/logoo.png',
-                text: 'Sümela Manastırı',
+                image: 'assets/uzungöl.jpeg',
+                text: 'Uzun Göl',
+              ),
+              MyCustomWidget(
+                image: 'assets/trabzon_sumela.jpg',
+                text: 'Sumela Manastırı',
               ),
             ],
           ),
