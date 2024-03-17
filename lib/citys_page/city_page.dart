@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:geziyorum/city_select.dart';
 import 'package:geziyorum/detayl%C4%B1_g%C3%B6r%C3%BCnen.dart';
+import 'package:geziyorum/istanbul/istanbul_gezme.dart';
+import 'package:geziyorum/istanbul/istanbul_konaklama.dart';
+import 'package:geziyorum/istanbul/istanbul_yemek.dart';
 import 'package:geziyorum/trabzon/trabzon_gezme.dart';
 import 'package:geziyorum/trabzon/trabzon_konaklama.dart';
 import 'package:geziyorum/trabzon/trabzon_yemek.dart';
@@ -112,7 +115,7 @@ class _CityPageState extends State<CityPage> {
                 Navigator.push(
                   context,
                   PageTransition(
-                    child: TrabzonKonaklama(),
+                    child: IstanbulGezme(),
                     type: PageTransitionType.rightToLeft,
                   ),
                 );
