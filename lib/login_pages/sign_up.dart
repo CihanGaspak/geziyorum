@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:geziyorum/login_pages/login_page.dart';
+import 'package:page_transition/page_transition.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({
     super.key,
   });
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Geziyorum'),
+        centerTitle: true,
+        title: Text('Geziyorum',style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w600,
+        ),),
       ),
       body: Column(
         children: [
@@ -60,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Giriş Yap',
+                        'Kayıt ol',
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.bold,
@@ -101,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                           // Giriş butonuna basıldığında yapılacak işlemler
                         },
                         child: Text(
-                          'Giriş Yap',
+                          'Kayıt ol',
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w400,
@@ -113,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Hesabınız yok mu? ',
+                            'Hesabınız var mı? ',
                             style: TextStyle(
                               color: Colors.black, // Metin rengini yeşil yapar
                               fontSize: 14,
@@ -121,10 +127,16 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           InkWell(
                             onTap: () {
-                              // "Hemen kaydolun" metni tıklandığında yapılacak işlemler
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  child: LoginPage(),
+                                  type: PageTransitionType.fade,
+                                ),
+                              );
                             },
                             child: Text(
-                              'Hemen kaydolun',
+                              'Giriş yapın!',
                               style: TextStyle(
                                 color: Colors.blue, // Metin rengini yeşil yapar
                                 fontWeight: FontWeight.w500,
@@ -133,21 +145,6 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ],
-                      ),
-                      Center(
-                        child: InkWell(
-                          onTap: () {
-                            // "Hemen kaydolun" metni tıklandığında yapılacak işlemler
-                          },
-                          child: Text(
-                            'Şifremi unuttum',
-                            style: TextStyle(
-                              color: Colors.blue, // Metin rengini yeşil yapar
-                              fontWeight: FontWeight.w500,
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ),
