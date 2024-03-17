@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geziyorum/city_select.dart';
+import 'package:geziyorum/detayl%C4%B1_g%C3%B6r%C3%BCnen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CityPage extends StatefulWidget {
   const CityPage({Key? key});
@@ -106,7 +108,10 @@ class _CityPageState extends State<CityPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CitySelectPage()),
+                  PageTransition(
+                    child: DetayliGorunen(),
+                    type: PageTransitionType.rightToLeft,
+                  ),
                 );
               },
             ),
